@@ -5,12 +5,9 @@ local function my_on_attach(bufnr)
     return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
   end
 
-  -- default mappings
   api.config.mappings.default_on_attach(bufnr)
-
-  -- custom mappings
-  vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', opts 'Toggle File [E]xplorer')
 end
+
 return {
   'nvim-tree/nvim-tree.lua',
   version = '*',
@@ -21,6 +18,9 @@ return {
   config = function()
     require('nvim-tree').setup {
       on_attach = my_on_attach,
+      vim.keymap.set('n', '<leader>ee', '<cmd>NvimTreeFocus<CR>'),
+      vim.keymap.set('n', '<leader>et', '<cmd>NvimTreeToggle<CR>'),
+
     }
   end,
 }
