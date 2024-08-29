@@ -11,7 +11,7 @@ return { -- Useful plugin to show you pending keybinds.
       { '<leader>f', group = '[F]ind' },
       { '<leader>w', group = '[W]orkspace' },
       { '<leader>t', group = '[T]oggle' },
-      { '<leader>h', group = '[G]it', mode = { 'n', 'v' } },
+      { '<leader>g', group = '[G]it', mode = { 'n', 'v' } },
     }
   end,
 }
