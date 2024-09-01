@@ -1,7 +1,6 @@
 # Misdirections Config
-Based on: [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)
-## Clone the Config
 
+## Clone the Config
 
 <details><summary> Linux and Mac </summary>
 
@@ -16,13 +15,13 @@ git clone https://github.com/misdirection/misdirections-config.git  "${XDG_CONFI
 If you're using `cmd.exe`:
 
 ```
-git clone https://github.com/misdirection/misdirections-config.git %localappdata%\nvim\
+git clone https://github.com/misdirection/nvim-config.git %localappdata%\nvim\
 ```
 
 If you're using `powershell.exe`
 
 ```
-git clone https://github.com/misdirection/misdirections-config.git  $env:LOCALAPPDATA\nvim\
+git clone https://github.com/misdirection/nvim-config.git  $env:LOCALAPPDATA\nvim\
 ```
 
 </details>
