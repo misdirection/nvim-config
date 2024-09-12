@@ -6,6 +6,8 @@ return {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     { 'j-hui/fidget.nvim', opts = {} },
     'hrsh7th/cmp-nvim-lsp',
+    'nvimtools/none-ls.nvim',
+    'nvim-lua/plenary.nvim',
   },
   config = function()
     vim.api.nvim_create_autocmd('LspAttach', {
@@ -70,6 +72,18 @@ return {
           },
         },
       },
+      volar = {
+        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+        init_options = {
+          vue = {
+            hybridMode = false,
+          },
+        },
+        on_attach = function(client, bufnr)
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end,
+      },
     }
 
     require('mason').setup()
@@ -77,6 +91,7 @@ return {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
+      'prettier', -- Used to format JavaScript, TypeScript, CSS, and JSON
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -89,5 +104,37 @@ return {
         end,
       },
     }
+
+    local null_ls = require 'null-ls'
+    null_ls.setup {
+      sources = {
+        null_ls.builtins.formatting.prettier,
+      },
+    }
+
+    -- Variable zum Aktivieren/Deaktivieren der Formatierung
+    local format_enabled = true
+
+    -- Funktion zum Umschalten der Formatierung
+    function Toggle_formatting()
+      format_enabled = not format_enabled
+      if format_enabled then
+        print 'Formatierung aktiviert'
+      else
+        print 'Formatierung deaktiviert'
+      end
+    end
+
+    -- Autocmd nur ausführen, wenn die Formatierung aktiviert ist
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      callback = function()
+        if format_enabled then
+          vim.lsp.buf.format { async = false }
+        end
+      end,
+    })
+
+    -- Mapping zum Umschalten der Formatierung
+    vim.api.nvim_set_keymap('n', '<leader>tf', ':lua Toggle_formatting()<CR>', { noremap = true, silent = true })
   end,
 }
