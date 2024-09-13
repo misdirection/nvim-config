@@ -15,6 +15,7 @@ return {
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },
   config = function()
+    local actions = require 'telescope.actions'
     require('telescope').setup {
       defaults = {
         path_display = { 'smart' },
@@ -22,6 +23,20 @@ return {
           prompt_position = 'top',
         },
         sorting_strategy = 'ascending',
+        mappings = {
+          i = {
+            -- Öffnet die ausgewählte Datei im horizontalen Split (Insert-Modus)
+            ['<C-s>'] = actions.select_horizontal,
+            -- Öffnet die ausgewählte Datei im vertikalen Split (Insert-Modus)
+            ['<C-v>'] = actions.select_vertical,
+          },
+          n = {
+            -- Öffnet die ausgewählte Datei im horizontalen Split (Normal-Modus)
+            ['<C-s>'] = actions.select_horizontal,
+            -- Öffnet die ausgewählte Datei im vertikalen Split (Normal-Modus)
+            ['<C-v>'] = actions.select_vertical,
+          },
+        },
       },
       extensions = {
         ['ui-select'] = {
