@@ -1,3 +1,4 @@
+-- INFO: use :checkhealth for errors or conflicts
 local check_version = function()
   local verstr = tostring(vim.version())
   if not vim.version.ge then

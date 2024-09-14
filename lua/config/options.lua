@@ -5,7 +5,7 @@ vim.opt.termguicolors = true -- Enables 24-bit RGB color support in the terminal
 vim.g.mapleader = ' '        -- sets space as leader key
 vim.g.maplocalleader = ' '
 
-vim.g.have_nerd_font = truw -- Enables the use of Nerd Font symbols if installed
+vim.g.have_nerd_font = true -- Enables the use of Nerd Font symbols if installed
 vim.opt.number = true -- Shows absolute line numbers
 vim.opt.relativenumber = true -- Shows relative line numbers to the current line
 vim.opt.mouse = 'a' -- Enables mouse support in all modes
