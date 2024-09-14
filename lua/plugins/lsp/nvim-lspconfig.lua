@@ -4,7 +4,7 @@ return {
     { 'williamboman/mason.nvim', config = true },
     'williamboman/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
-    { 'j-hui/fidget.nvim', opts = {} },
+    { 'j-hui/fidget.nvim',       opts = {} },
     'hrsh7th/cmp-nvim-lsp',
     'nvimtools/none-ls.nvim',
     'nvim-lua/plenary.nvim',
@@ -12,6 +12,7 @@ return {
   config = function()
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
+
       callback = function(event)
         local map = function(keys, func, desc)
           vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
@@ -61,37 +62,15 @@ return {
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-    local servers = {
-      elixirls = {},
-      lua_ls = {
-        settings = {
-          Lua = {
-            completion = {
-              callSnippet = 'Replace',
-            },
-          },
-        },
-      },
-      volar = {
-        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-        init_options = {
-          vue = {
-            hybridMode = false,
-          },
-        },
-        on_attach = function(client, bufnr)
-          client.server_capabilities.documentFormattingProvider = false
-          client.server_capabilities.documentRangeFormattingProvider = false
-        end,
-      },
-    }
+    local local_settings = require('config.local')
+    local servers = local_settings.lsp_servers or {}
 
     require('mason').setup()
 
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
-      'stylua', -- Used to format Lua code
-      'prettier', -- Used to format JavaScript, TypeScript, CSS, and JSON
+      -- 'stylua',   -- Used to format Lua code
+      -- 'prettier', -- Used to format JavaScript, TypeScript, CSS, and JSON
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -107,25 +86,21 @@ return {
 
     local null_ls = require 'null-ls'
     null_ls.setup {
-      sources = {
-        null_ls.builtins.formatting.prettier,
-      },
+      sources = local_settings.null_ls_sources or {},
     }
 
-    -- Variable zum Aktivieren/Deaktivieren der Formatierung
     local format_enabled = true
 
-    -- Funktion zum Umschalten der Formatierung
     function Toggle_formatting()
       format_enabled = not format_enabled
       if format_enabled then
-        print 'Formatierung aktiviert'
+        print 'formatting enabled'
       else
-        print 'Formatierung deaktiviert'
+        print 'formatting disabled'
       end
     end
 
-    -- Autocmd nur ausführen, wenn die Formatierung aktiviert ist
+    vim.api.nvim_set_keymap('n', '<leader>tf', ':lua Toggle_formatting()<CR>', { noremap = true, silent = true })
     vim.api.nvim_create_autocmd('BufWritePre', {
       callback = function()
         if format_enabled then
@@ -133,8 +108,5 @@ return {
         end
       end,
     })
-
-    -- Mapping zum Umschalten der Formatierung
-    vim.api.nvim_set_keymap('n', '<leader>tf', ':lua Toggle_formatting()<CR>', { noremap = true, silent = true })
   end,
 }

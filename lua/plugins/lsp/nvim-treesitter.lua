@@ -1,15 +1,15 @@
+local settings = require('config.local')
 return { -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
   opts = {
-    -- ensure_installed = { 'bash', 'c', 'diff', 'elixir', 'eex', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+    ensure_installed = settings.ensure_installed or {},
     -- Autoinstall languages that are not installed
     auto_install = true,
     highlight = {
       enable = true,
-      additional_vim_regex_highlighting = { 'ruby' },
     },
-    indent = { enable = true, disable = { 'ruby' } },
+    indent = { enable = true, },
   },
   config = function(_, opts)
     ---@diagnostic disable-next-line: missing-fields
