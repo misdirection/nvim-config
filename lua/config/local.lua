@@ -1,7 +1,7 @@
 -- insert local settings here
 local M = {}
 
-M.lsp_servers = {
+M.lsp_servers = { -- INFO: used in plugins/lsp/nvim-lspconfig.lua
   -- elixirls = {},
   -- lua_ls = {
   --   settings = {
@@ -26,7 +26,7 @@ M.lsp_servers = {
   -- },
 }
 
-M.treesitter_ensure_installed = {
+M.treesitter_ensure_installed = { -- INFO: used in plugins/lsp/nvim-treesitter.lua
   -- 'bash',
   -- 'c',
   -- 'diff',
@@ -42,8 +42,14 @@ M.treesitter_ensure_installed = {
   -- 'vimdoc'
 }
 
-M.null_ls_sources = {
+M.null_ls_sources = { -- INFO: used in plugins/lsp/lspconfig-nvim.lua
   -- null_ls.builtins.formatting.prettier,
 }
 
+M.obsidian_workspaces = { -- INFO: used in plugins/obsidian.lua
+  {
+    name = "personal",
+    path = "~/src/vault/obsidian-vault",
+  },
+}
 return M
