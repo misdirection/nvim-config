@@ -1,4 +1,4 @@
--- insert local settings here
+-- INFO: insert local settings here
 local M = {}
 
 M.lsp_servers = { -- INFO: used in plugins/lsp/nvim-lspconfig.lua
@@ -35,7 +35,7 @@ M.treesitter_ensure_installed = { -- INFO: used in plugins/lsp/nvim-treesitter.l
   -- 'html',
   'lua',
   'luadoc',
-  -- 'markdown',
+  'markdown',
   -- 'markdown_inline',
   -- 'query',
   -- 'vim',
