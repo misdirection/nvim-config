@@ -20,8 +20,9 @@ return {
       },
     })
     vim.api.nvim_set_keymap('n', '\\', ':Neotree toggle current reveal_force_cwd<CR>', { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<Leader>e', ':Neotree reveal<CR>', { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<leader>b', ':Neotree toggle show buffers right<CR>', { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<leader>s', ':Neotree float git_status<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', '<Leader>ee', ':Neotree toggle<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', '<leader>eb', ':Neotree toggle show buffers right<CR>',
+      { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', '<leader>es', ':Neotree float git_status<CR>', { noremap = true, silent = true })
   end,
 }
