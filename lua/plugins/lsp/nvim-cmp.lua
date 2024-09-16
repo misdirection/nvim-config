@@ -45,7 +45,21 @@ return { -- Autocompletion
         end,
       },
       completion = { completeopt = 'menu,menuone,noinsert' },
-
+      window = {
+        completion = cmp.config.window.bordered({
+          border = 'rounded',
+          winhighlight = 'Normal:Pmenu,FloatBorder:PmenuBorder,CursorLine:PmenuSel,Search:None',
+          scrollbar = false,
+        }),
+        documentation = cmp.config.window.bordered({
+          border = 'rounded',
+          winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None',
+        }),
+      },
+      experimental = {
+        ghost_text = true,
+        native_menu = false,
+      },
       -- No, but seriously. Please read `:help ins-completion`, it is really good!
       mapping = cmp.mapping.preset.insert {
         -- Select the [n]ext item

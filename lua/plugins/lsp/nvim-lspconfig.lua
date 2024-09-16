@@ -63,17 +63,11 @@ return {
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
     local local_settings = require('config.local')
-    local servers = local_settings.lsp_servers or {}
 
     require('mason').setup()
+    require('mason-tool-installer').setup { ensure_installed = local_settings.mason_ensure_installed or {} }
 
-    local ensure_installed = vim.tbl_keys(servers or {})
-    vim.list_extend(ensure_installed, {
-      -- 'stylua',   -- Used to format Lua code
-      -- 'prettier', -- Used to format JavaScript, TypeScript, CSS, and JSON
-    })
-    require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
+    local servers = local_settings.lsp_servers or {}
     require('mason-lspconfig').setup {
       handlers = {
         function(server_name)

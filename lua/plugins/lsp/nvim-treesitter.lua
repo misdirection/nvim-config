@@ -3,8 +3,7 @@ return { -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
   opts = {
-    ensure_installed = settings.ensure_installed or {},
-    -- Autoinstall languages that are not installed
+    ensure_installed = settings.treesitter_ensure_installed or {},
     auto_install = true,
     highlight = {
       enable = true,

@@ -7,6 +7,13 @@ return { -- Collection of various small independent plugins/modules
   --   end,
   -- },
   {
+    'echasnovski/mini.ai',
+    version = false,
+    config = function()
+      require('mini.ai').setup {}
+    end,
+  },
+  {
     'echasnovski/mini.move',
     version = false,
     config = function()

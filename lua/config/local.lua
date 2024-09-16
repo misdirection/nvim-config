@@ -2,16 +2,16 @@
 local M = {}
 
 M.lsp_servers = { -- INFO: used in plugins/lsp/nvim-lspconfig.lua
-  -- elixirls = {},
-  -- lua_ls = {
-  --   settings = {
-  --     Lua = {
-  --       completion = {
-  --         callSnippet = 'Replace',
-  --       },
-  --     },
-  --   },
-  -- },
+  elixirls = {},
+  lua_ls = {
+    settings = {
+      Lua = {
+        completion = {
+          callSnippet = 'Replace',
+        },
+      },
+    },
+  },
   -- volar = {
   --   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
   --   init_options = {
@@ -25,6 +25,17 @@ M.lsp_servers = { -- INFO: used in plugins/lsp/nvim-lspconfig.lua
   --   end,
   -- },
 }
+-- Extract the keys (LSP server names) from M.lsp_servers
+local ensure_installed = vim.tbl_keys(M.lsp_servers)
+
+-- Define additional tools to be installed
+local additional_tools = {
+  'stylua',
+  'prettier',
+}
+
+-- Combine ensure_installed with additional_tools
+M.mason_ensure_installed = vim.list_extend(ensure_installed, additional_tools)
 
 M.treesitter_ensure_installed = { -- INFO: used in plugins/lsp/nvim-treesitter.lua
   -- 'bash',
@@ -33,9 +44,9 @@ M.treesitter_ensure_installed = { -- INFO: used in plugins/lsp/nvim-treesitter.l
   -- 'elixir',
   -- 'eex',
   -- 'html',
-  'lua',
-  'luadoc',
-  'markdown',
+  -- 'lua',
+  -- 'luadoc',
+  -- 'markdown',
   -- 'markdown_inline',
   -- 'query',
   -- 'vim',
