@@ -6,23 +6,24 @@ return {
     'nvim-tree/nvim-web-devicons',
     'MunifTanjim/nui.nvim',
   },
-  config = function()
-    require('neo-tree').setup({
-      filesystem = {
-        window = {
-          mappings = {
-            ["l"] = "toggle_node",
-            ["<Right>"] = "toggle_node",
-            ["h"] = "close_node",
-            ["<Left>"] = "close_node",
-          },
-        }
-      },
-    })
-    vim.api.nvim_set_keymap('n', '\\', ':Neotree toggle current reveal_force_cwd<CR>', { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<Leader>ee', ':Neotree toggle<CR>', { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<leader>eb', ':Neotree toggle show buffers right<CR>',
-      { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<leader>es', ':Neotree float git_status<CR>', { noremap = true, silent = true })
-  end,
+  opts = {
+    filesystem = {
+      window = {
+        mappings = {
+          ["l"] = "toggle_node",
+          ["<Right>"] = "toggle_node",
+          ["h"] = "close_node",
+          ["<Left>"] = "close_node",
+        },
+      }
+    },
+  },
+  keys = {
+    { '\\',         ':Neotree toggle current reveal_force_cwd<CR>', desc = 'Reveal temp explorer', { noremap = true, silent = true } },
+    { '<Leader>ee', ':Neotree focus filesystem<CR>',                desc = 'focus explorer',       { noremap = true, silent = true } },
+    { '<Leader>ec', ':Neotree close<CR>',                           desc = 'close explorer',       { noremap = true, silent = true } },
+    { '<Leader>em', ':Neotree toggle show<CR>',                     desc = 'Toggle show',          { noremap = true, silent = true } },
+    { '<leader>eb', ':Neotree toggle show buffers right<CR>',       desc = 'Toggle Buffers right', { noremap = true, silent = true } },
+    { '<leader>es', ':Neotree float git_status<CR>',                desc = 'Floating git status',  { noremap = true, silent = true } },
+  },
 }

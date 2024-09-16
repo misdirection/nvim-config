@@ -1,6 +1,7 @@
 return { -- Collection of various small independent plugins/modules
   -- {
   --   'echasnovski/mini.nvim',
+  --
   --   config = function()
   --     require('mini.ai').setup { n_lines = 500 }
   --     vim.g.ministatusline_disable = true
@@ -9,29 +10,22 @@ return { -- Collection of various small independent plugins/modules
   {
     'echasnovski/mini.ai',
     version = false,
-    config = function()
-      require('mini.ai').setup {}
-    end,
+    opts = {},
   },
   {
     'echasnovski/mini.move',
     version = false,
-    config = function()
-      require('mini.move').setup()
-    end,
+    opts = {},
   },
   {
     'echasnovski/mini.animate',
     version = false,
-    config = function()
-      require('mini.animate').setup()
-    end,
+    opts = {},
   },
   {
     'echasnovski/mini.jump',
     version = false,
-    config = function()
-      require('mini.jump').setup()
-    end,
+    opts = {},
+    keys = { 'n', '<ESC>', '<cmd>lua require("mini.jump").stop_jumping()<CR>' },
   },
 }

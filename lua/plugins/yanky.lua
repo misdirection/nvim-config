@@ -1,6 +1,6 @@
 return {
   'gbprod/yanky.nvim',
-  event = 'VeryLazy', -- Lade das Plugin lazy
+  event = 'VeryLazy',
   config = function()
     require('yanky').setup({
       yank = {
@@ -8,12 +8,12 @@ return {
         on_yank = true,
       },
       ring = {
-        history_length = 100, -- Anzahl der gespeicherten Yanks
-        storage = 'shada',    -- Speichert die Yank-Historie in der Shada-Datei
+        history_length = 100,
+        storage = 'shada',
       },
       system_clipboard = {
-        sync_with_ring = true, -- Synchronisiere mit der Yank-History
-        select = true,         -- Verwende die Systemzwischenablage für Auswahl
+        sync_with_ring = true,
+        select = true,
       },
     })
     require('telescope').load_extension('yank_history')

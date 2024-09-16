@@ -69,6 +69,6 @@ return {
       "sindrets/diffview.nvim",        -- optional - Diff integration
       "nvim-telescope/telescope.nvim", -- optional
     },
-    config = true
+    opts = {}
   },
 }

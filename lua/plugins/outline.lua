@@ -1,20 +1,14 @@
 return {
   {
     'hedyhli/outline.nvim',
-    config = function()
-      -- Example mapping to toggle outline
-      vim.keymap.set('n', '<leader>o', '<cmd>Outline<CR>', { desc = 'Toggle Outline' })
-
-      require('outline').setup {
-        -- Your setup opts here (leave empty to use defaults)
-      }
-    end,
+    opts = {},
+    keys = { { '<leader>to', '<cmd>Outline<CR>', desc = 'Toggle Outline' } },
   },
 
   {
     'stevearc/aerial.nvim',
     opts = {},
-    -- Optional dependencies
+    keys = { { '<leader>ta', '<cmd>AerialToggle<CR>', desc = 'Toggle Aerial' } },
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
       'nvim-tree/nvim-web-devicons',
