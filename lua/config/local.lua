@@ -34,6 +34,9 @@ local additional_tools = {
   'prettier',
 }
 
+M.dap_python_config = function()
+end
+
 -- Combine ensure_installed with additional_tools
 M.mason_ensure_installed = vim.list_extend(ensure_installed, additional_tools)
 
@@ -51,10 +54,6 @@ M.treesitter_ensure_installed = { -- INFO: used in plugins/lsp/nvim-treesitter.l
   -- 'query',
   -- 'vim',
   -- 'vimdoc'
-}
-
-M.null_ls_sources = { -- INFO: used in plugins/lsp/lspconfig-nvim.lua
-  -- null_ls.builtins.formatting.prettier,
 }
 
 M.obsidian_workspaces = { -- INFO: used in plugins/obsidian.lua

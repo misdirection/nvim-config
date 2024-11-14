@@ -36,17 +36,6 @@ return {
             model = "o1-preview",
           },
         },
-        -- adapters = {
-        --   copilot = function()
-        --     return require('codecompanion.adapters').extend("copilot", {
-        --       schema = {
-        --         model = {
-        --           default = "o1-preview",
-        --         },
-        --       }
-        --     })
-        --   end,
-        -- },
       })
     end,
   }
