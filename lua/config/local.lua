@@ -12,6 +12,7 @@ M.lsp_servers = { -- INFO: used in plugins/lsp/nvim-lspconfig.lua
       },
     },
   },
+  ruff = {},
   -- volar = {
   --   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
   --   init_options = {

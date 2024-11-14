@@ -30,13 +30,6 @@ vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldlevel = 99
 -- for diffview
 vim.opt.conceallevel = 1 -- Hides concealable text (e.g., markdown lists)
-vim.cmd [[
-  highlight DiffAdd    guifg=#88ff88 guibg=none
-  highlight DiffChange guifg=#ffff88 guibg=none
-  highlight DiffDelete guifg=#ff8888 guibg=none
-  highlight DiffText   guifg=#ccccff guibg=none
-  highlight Folded     guibg=#303030 guifg=#aaaaaa
-]]
 vim.opt.fillchars = "diff: ,fold: ,foldopen:,foldsep: ,foldclose:"
 --for diffview end
 -- sets clipboard when using WSL
