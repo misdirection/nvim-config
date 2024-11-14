@@ -22,20 +22,6 @@ return {
             provider = "mini_diff",
           },
         },
-        strategies = {
-          chat = {
-            adapter = "copilot",
-            model = "o1-preview",
-          },
-          inline = {
-            adapter = "copilot",
-            model = "o1-preview",
-          },
-          agent = {
-            adapter = "copilot",
-            model = "o1-preview",
-          },
-        },
       })
     end,
   }

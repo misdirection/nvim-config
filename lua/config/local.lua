@@ -34,7 +34,7 @@ local additional_tools = {
   'prettier',
 }
 
-M.dap_python_config = function()
+M.dap_python_config = function(_) --INFO: used in plugins/lsp/debug
 end
 
 -- Combine ensure_installed with additional_tools
