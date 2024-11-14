@@ -1,5 +1,3 @@
-local settings = require('config/local')
-
 return {
   "epwalsh/obsidian.nvim",
   version = "*", -- recommended, use latest release instead of latest commit
@@ -18,6 +16,6 @@ return {
     "nvim-lua/plenary.nvim",
   },
   opts = {
-    workspaces = settings.obsidian_workspaces or {},
+    workspaces = require('config.local').obsidian_workspaces or {},
   },
 }
