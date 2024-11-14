@@ -28,4 +28,9 @@ return { -- Collection of various small independent plugins/modules
     opts = {},
     keys = { 'n', '<ESC>', '<cmd>lua require("mini.jump").stop_jumping()<CR>' },
   },
+  {
+    'echasnovski/mini.diff',
+    version = false,
+    opts = {},
+  },
 }

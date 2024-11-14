@@ -78,11 +78,6 @@ return {
       },
     }
 
-    local null_ls = require 'null-ls'
-    null_ls.setup {
-      sources = local_settings.null_ls_sources or {},
-    }
-
     local format_enabled = true
 
     function Toggle_formatting()

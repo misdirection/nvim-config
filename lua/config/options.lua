@@ -24,12 +24,21 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Defines how h
 vim.opt.inccommand = 'split' -- Shows live preview of substitutions, splitting the screen to display changes
 vim.opt.cursorline = true -- Highlights the current line under the cursor
 vim.opt.scrolloff = 10 -- Keeps at least 10 lines visible above and below the cursor when scrolling
-
 -- use treesitter for folding
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldlevel = 99
-
+-- for diffview
+vim.opt.conceallevel = 1 -- Hides concealable text (e.g., markdown lists)
+vim.cmd [[
+  highlight DiffAdd    guifg=#88ff88 guibg=none
+  highlight DiffChange guifg=#ffff88 guibg=none
+  highlight DiffDelete guifg=#ff8888 guibg=none
+  highlight DiffText   guifg=#ccccff guibg=none
+  highlight Folded     guibg=#303030 guifg=#aaaaaa
+]]
+vim.opt.fillchars = "diff: ,fold: ,foldopen:,foldsep: ,foldclose:"
+--for diffview end
 -- sets clipboard when using WSL
 if vim.fn.has 'wsl' == 1 then
   vim.g.clipboard = {
