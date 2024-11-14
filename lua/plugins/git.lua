@@ -64,7 +64,7 @@ return {
   },
   {
     "sindrets/diffview.nvim", -- optional - Diff integration
-    requires = {
+    dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons' },
     config = function()
