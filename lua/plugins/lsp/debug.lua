@@ -6,7 +6,13 @@ return {
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
     'theHamsta/nvim-dap-virtual-text',
-    'mfussenegger/nvim-dap-python'
+    {
+      'mfussenegger/nvim-dap-python',
+      ft = 'python',
+      config = function(_)
+        require('config.local').dap_python_config(_)
+      end,
+    },
   },
   keys = function(_, keys)
     local dap = require 'dap'
@@ -78,7 +84,12 @@ return {
         },
       }
     end
+
+    -- dap.adapters.python = {
+    --   type = 'executable',
+    --   command = '/env/bin/python', -- dein Python-Interpreter
+    --   args = { '-m', 'debugpy.adapter' },
+    -- }
+    --
   end,
-
-
 }
