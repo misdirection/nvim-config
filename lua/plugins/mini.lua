@@ -33,4 +33,9 @@ return { -- Collection of various small independent plugins/modules
     version = false,
     opts = {},
   },
+  {
+    'echasnovski/mini.icons',
+    version = false,
+    opts = {},
+  },
 }
