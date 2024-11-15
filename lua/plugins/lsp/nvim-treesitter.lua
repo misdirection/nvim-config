@@ -1,9 +1,8 @@
-local settings = require('config.local')
 return { -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
   opts = {
-    ensure_installed = settings.treesitter_ensure_installed or {},
+    ensure_installed = require('config.local').treesitter_ensure_installed or {},
     auto_install = true,
     highlight = {
       enable = true,

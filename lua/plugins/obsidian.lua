@@ -17,5 +17,9 @@ return {
   },
   opts = {
     workspaces = require('config.local').obsidian_workspaces or {},
+
+    ui = {
+      enable = false,
+    }
   },
 }
