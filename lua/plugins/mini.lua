@@ -25,8 +25,20 @@ return { -- Collection of various small independent plugins/modules
   {
     'echasnovski/mini.jump',
     version = false,
-    opts = {},
-    keys = { 'n', '<ESC>', '<cmd>lua require("mini.jump").stop_jumping()<CR>' },
+    opts = function(_, opts)
+      -- Füge eine Keymap für ESC hinzu
+      vim.keymap.set('n', '<Esc>', function()
+        -- Entferne Suchhervorhebungen
+        vim.cmd('noh')
+        MiniJump = require('mini.jump')
+        -- Stoppe mini.jump
+        if MiniJump ~= nil and MiniJump.stop_jumping() ~= nil then
+          MiniJump.stop_jumping()
+        end
+      end, { noremap = true, silent = true, desc = "ESC: Clear search and stop mini.jump" })
+
+      return opts
+    end,
   },
   {
     'echasnovski/mini.diff',
