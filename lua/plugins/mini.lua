@@ -26,13 +26,12 @@ return { -- Collection of various small independent plugins/modules
     'echasnovski/mini.jump',
     version = false,
     opts = function(_, opts)
-      -- Füge eine Keymap für ESC hinzu
+      -- Add ESC keymap to clear highlights and stop jumping
+      local MiniJump = require('mini.jump')
       vim.keymap.set('n', '<Esc>', function()
-        -- Entferne Suchhervorhebungen
         vim.cmd('noh')
-        MiniJump = require('mini.jump')
-        -- Stoppe mini.jump
-        if MiniJump ~= nil and MiniJump.stop_jumping() ~= nil then
+        -- Stop mini.jump if available
+        if MiniJump.stop_jumping then
           MiniJump.stop_jumping()
         end
       end, { noremap = true, silent = true, desc = "ESC: Clear search and stop mini.jump" })
