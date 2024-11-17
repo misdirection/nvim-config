@@ -24,5 +24,8 @@ return {
         },
       })
     end,
+    keys = {
+      { "<leader>cc", "<cmd>CodeCompanionChat<cr>", desc = "CodeCompanion Chat", noremap = true, silent = true },
+    },
   }
 }
