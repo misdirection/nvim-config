@@ -16,16 +16,18 @@ return {
   },
   keys = {
     -- Ihre Keymaps hier (wie zuvor besprochen)
-    { '<leader>fh',       '<cmd>Telescope help_tags<cr>',   desc = '[F]ind [H]elp' },
-    { '<leader>fk',       '<cmd>Telescope keymaps<cr>',     desc = '[F]ind [K]eymaps' },
-    { '<leader>ff',       '<cmd>Telescope find_files<cr>',  desc = '[F]ind [F]iles' },
-    { '<leader>fs',       '<cmd>Telescope builtin<cr>',     desc = '[F]ind [S]elect Telescope' },
-    { '<leader>fw',       '<cmd>Telescope grep_string<cr>', desc = '[F]ind current [W]ord' },
-    { '<leader>fg',       '<cmd>Telescope live_grep<cr>',   desc = '[F]ind by [G]rep' },
-    { '<leader>fd',       '<cmd>Telescope diagnostics<cr>', desc = '[F]ind [D]iagnostics' },
-    { '<leader>fr',       '<cmd>Telescope resume<cr>',      desc = '[F]ind [R]esume' },
-    { '<leader>f.',       '<cmd>Telescope oldfiles<cr>',    desc = '[F]ind Recent Files ("." for repeat)' },
-    { '<leader><leader>', '<cmd>Telescope buffers<cr>',     desc = '[ ] Find existing buffers' },
+    { '<leader>fh',       '<cmd>Telescope help_tags<cr>',    desc = '[F]ind [H]elp' },
+    { '<leader>fk',       '<cmd>Telescope keymaps<cr>',      desc = '[F]ind [K]eymaps' },
+    { '<leader>ff',       '<cmd>Telescope find_files<cr>',   desc = '[F]ind [F]iles' },
+    { '<leader>fs',       '<cmd>Telescope builtin<cr>',      desc = '[F]ind [S]elect Telescope' },
+    { '<leader>fw',       '<cmd>Telescope grep_string<cr>',  desc = '[F]ind current [W]ord' },
+    { '<leader>fg',       '<cmd>Telescope live_grep<cr>',    desc = '[F]ind by [G]rep' },
+    { '<leader>fd',       '<cmd>Telescope diagnostics<cr>',  desc = '[F]ind [D]iagnostics' },
+    { '<leader>fr',       '<cmd>Telescope resume<cr>',       desc = '[F]ind [R]esume' },
+    { '<leader>f.',       '<cmd>Telescope oldfiles<cr>',     desc = '[F]ind Recent Files ("." for repeat)' },
+    { '<leader>fb',       '<cmd>Telescope git_branches<cr>', desc = '[F]ind [B]ranch' },
+    { '<leader>fc',       '<cmd>Telescope git_commits<cr>',  desc = '[F]ind [C]ommit' },
+    { '<leader><leader>', '<cmd>Telescope buffers<cr>',      desc = '[ ] Find existing buffers' },
     {
       '<leader>/',
       function()
@@ -87,4 +89,3 @@ return {
     pcall(telescope.load_extension, 'ui-select')
   end,
 }
-
