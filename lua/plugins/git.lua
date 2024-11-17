@@ -88,6 +88,8 @@ return {
         },
       })
     end,
-    opts = {}
+    keys = {
+      { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit", noremap = true, silent = true },
+    },
   },
 }
