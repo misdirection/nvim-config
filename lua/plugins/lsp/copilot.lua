@@ -21,6 +21,9 @@ return {
           diff = {
             provider = "mini_diff",
           },
+          chat = {
+            render_headers = false,
+          },
         },
       })
     end,
