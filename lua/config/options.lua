@@ -1,7 +1,7 @@
 vim.g.loaded_netrw = 1       -- Disables the default Netrw file explorer
 vim.g.loaded_netrwPlugin = 1 -- Disables the Netrw plugin, using neotree instead
 vim.opt.termguicolors = true -- Enables 24-bit RGB color support in the terminal
-
+vim.o.autoread = true
 vim.g.mapleader = ' '        -- sets space as leader key
 vim.g.maplocalleader = ' '
 
