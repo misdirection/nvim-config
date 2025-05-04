@@ -39,12 +39,11 @@ return {
           ollama = function()
             return require("codecompanion.adapters").extend("ollama", {
               env = {
-                -- Für lokalen Betrieb genügt der Standard:
                 url = "http://127.0.0.1:11434",
               },
               schema = {
                 model = {
-                  default = "qwen3:14b", -- Name des lokal via Ollama laufenden Modells
+                  default = "qwen3:14b",
                 },
               },
             })
