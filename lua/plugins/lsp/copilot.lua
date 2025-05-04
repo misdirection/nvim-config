@@ -1,3 +1,21 @@
+function load_prompts()
+  local prompts = {}
+  local prompt_dir = vim.fn.stdpath("config") .. "/lua/prompts"
+
+  for _, file in ipairs(vim.fn.readdir(prompt_dir)) do
+    if file:match("%.lua$") then
+      local prompt_name = file:gsub("%.lua$", "")                           -- Remove the .lua extension
+      prompt_name = prompt_name:gsub("_", " ")                              -- Replace underscores with spaces
+      prompt_name = prompt_name:gsub("(%l)(%w*)", function(first, rest)
+        return first:upper() .. rest:lower()                                -- Capitalize each word
+      end)
+      prompts[prompt_name] = require("prompts." .. file:gsub("%.lua$", "")) -- Load the prompt file
+    end
+  end
+
+  return prompts
+end
+
 return {
   {
     'github/copilot.vim',
@@ -13,6 +31,7 @@ return {
       { "stevearc/dressing.nvim",                    opts = {} },                            -- Optional: Improves `vim.ui.select`
     },
     config = function()
+      local prompts = load_prompts() -- Dynamically load all prompts
       require('codecompanion').setup({
         extensions = {
           mcphub = {
@@ -49,74 +68,80 @@ return {
             })
           end,
         },
-        prompt_library = {
-          ["Software Engineering Expert"] = {
-            strategy    = "chat", -- uses chat mode
-            description = "Respond as a seasoned software engineer and design/architecture patterns authority",
-            opts        = {
-              mapping                = "<LocalLeader>se", -- optional keymap
-              short_name             = "se",              -- slash-command: /se
-              auto_submit            = false,             -- let you edit before sending
-              stop_context_insertion = true,              -- avoid duplicate context inserts
-            },
-            prompts     = {
-              {
-                role    = "system",
-                content = [[
-You are a highly skilled senior software engineer with over 15 years of experience in both backend and frontend architectures, Clean Code principles, Test-Driven Development, and DevOps practices. You are also an authority on software design and architecture patterns (e.g., Singleton, Factory, Observer, Strategy, MVC, Hexagonal, Microservices, Event-Driven, CQRS, etc.). When relevant, you will apply and explain these patterns clearly and provide well-commented code examples that demonstrate their usage and benefits.Profile the code for hot paths, high-complexity loops, and memory issues. Recommend optimizations (data structures, caching) with code examples.]]
-              },
-              {
-                role    = "user",
-                content = [[
-<user_prompt>Please describe your specific software engineering question or task:
-– What problem are you trying to solve?
-– Which tech stack are you using?
-– Are there any special requirements or constraints?</user_prompt>]]
-              },
-            },
-          },
-          ["Current Buffer Review"] = {
-            strategy    = "chat",
-            description = "Review the entire current buffer, point out issues, and suggest improvements",
-            opts        = {
-              mapping                = "<LocalLeader>cr", -- keymap for buffer review
-              modes                  = { "n" },           -- only in normal mode
-              short_name             = "cr",              -- slash-command: /cr
-              auto_submit            = true,              -- submit automatically
-              stop_context_insertion = true,              -- avoid duplicate context inserts
-              user_prompt            = false,             -- no additional user prompt needed
-            },
-            prompts     = {
-              {
-                role    = "system",
-                content = function(context)
-                  return "You are a senior software architect and expert code reviewer. Review the current "
-                      .. context.filetype
-                      .. " buffer thoroughly, identify any potential bugs or anti-patterns, and suggest improvements and best practices."
-                end,
-              },
-              {
-                role    = "user",
-                content = function(context)
-                  -- fetch all lines from the buffer
-                  local lines = vim.api.nvim_buf_get_lines(context.bufnr, 0, -1, false)
-                  local text = table.concat(lines, "\n")
-                  return "Here is the full content of the buffer:\n\n```"
-                      .. context.filetype
-                      .. "\n"
-                      .. text
-                      .. "\n```"
-                end,
-                opts    = { contains_code = true },
-              },
-            },
-          },
-        }
+        prompt_library = prompts,
       })
     end,
     keys = {
       { "<leader>cc", "<cmd>CodeCompanionChat<cr>",    desc = "CodeCompanion Chat",    noremap = true, silent = true },
       { "<leader>cx", "<cmd>CodeCompanionActions<cr>", desc = "CodeCompanion Actions", noremap = true, silent = true },
     },
+  },
+  {
+    "ravitemer/mcphub.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- Required for Job and HTTP requests
+    },
+    -- uncomment the following line to load hub lazily
+    --cmd = "MCPHub",  -- lazy load
+    -- build = "npm install -g mcp-hub@latest", -- Installs required mcp-hub npm module
+    -- uncomment this if you don't want mcp-hub to be available globally or can't use -g
+    build = "bundled_build.lua", -- Use this and set use_bundled_binary = true in opts  (see Advanced configuration)
+    config = function()
+      require("mcphub").setup({
+        port = 37373,                                            -- Default port for MCP Hub
+        config = vim.fn.expand("~/.config/mcphub/servers.json"), -- Absolute path to config file location (will create if not exists)
+        native_servers = {},                                     -- add your native servers here
+
+        auto_approve = vim.g.mcphub_auto_approve or false,       -- Auto approve mcp tool calls
+        auto_toggle_mcp_servers = true,                          -- Let LLMs start and stop MCP servers automatically
+        -- Extensions configuration
+        extensions = {
+          avante = {
+            make_slash_commands = true, -- make /slash commands from MCP server prompts
+          }
+        },
+
+        -- Default window settings
+        ui = {
+          window = {
+            width = 0.8,  -- 0-1 (ratio); "50%" (percentage); 50 (raw number)
+            height = 0.8, -- 0-1 (ratio); "50%" (percentage); 50 (raw number)
+            relative = "editor",
+            zindex = 50,
+            border = "rounded", -- "none", "single", "double", "rounded", "solid", "shadow"
+          },
+          wo = {                -- window-scoped options (vim.wo)
+          },
+        },
+
+        -- Event callbacks
+        on_ready = function(hub)
+          -- Called when hub is ready
+        end,
+        on_error = function(err)
+          -- Called on errors
+        end,
+
+        --set this to true when using build = "bundled_build.lua"
+        use_bundled_binary = false, -- Uses bundled mcp-hub script instead of global installation
+
+        --WARN: Use the custom setup if you can't use `npm install -g mcp-hub` or cant have `build = "bundled_build.lua"`
+        -- Custom Server command configuration
+        --cmd = "node", -- The command to invoke the MCP Hub Server
+        --cmdArgs = {"/path/to/node_modules/mcp-hub/dist/cli.js"},    -- Additional arguments for the command
+        -- In cases where mcp-hub server is hosted somewhere, set this to the server URL e.g `http://mydomain.com:customport` or `https://url_without_need_for_port.com`
+        -- server_url = nil, -- defaults to `http://localhost:port`
+        -- Multi-instance Support
+        shutdown_delay = 600000, -- Delay in ms before shutting down the server when last instance closes (default: 10 minutes)
+
+        -- Logging configuration
+        log = {
+          level = vim.log.levels.WARN,
+          to_file = false,
+          file_path = nil,
+          prefix = "MCPHub",
+        },
+      })
+    end,
   }
 }

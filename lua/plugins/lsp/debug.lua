@@ -64,32 +64,5 @@ return {
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
-
-    local elixir_ls_debugger = vim.fn.exepath "elixir-ls-debugger"
-    if elixir_ls_debugger ~= "" then
-      dap.adapters.mix_task = {
-        type = "executable",
-        command = elixir_ls_debugger,
-      }
-
-      dap.configurations.elixir = {
-        {
-          type = "mix_task",
-          name = "phoenix server",
-          task = "phx.server",
-          request = "launch",
-          projectDir = "${workspaceFolder}",
-          exitAfterTaskReturns = false,
-          debugAutoInterpretAllModules = false,
-        },
-      }
-    end
-
-    -- dap.adapters.python = {
-    --   type = 'executable',
-    --   command = '/env/bin/python', -- dein Python-Interpreter
-    --   args = { '-m', 'debugpy.adapter' },
-    -- }
-    --
   end,
 }
