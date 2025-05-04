@@ -24,6 +24,9 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Defines how h
 vim.opt.inccommand = 'split' -- Shows live preview of substitutions, splitting the screen to display changes
 vim.opt.cursorline = true -- Highlights the current line under the cursor
 vim.opt.scrolloff = 10 -- Keeps at least 10 lines visible above and below the cursor when scrolling
+
+-- mcphub auto approve
+vim.g.mcphub_auto_approve = true
 -- use treesitter for folding
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
