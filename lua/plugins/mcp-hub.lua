@@ -6,16 +6,16 @@ return {
   },
   -- uncomment the following line to load hub lazily
   --cmd = "MCPHub",  -- lazy load
-  build = "npm install -g mcp-hub@latest", -- Installs required mcp-hub npm module
+  -- build = "npm install -g mcp-hub@latest", -- Installs required mcp-hub npm module
   -- uncomment this if you don't want mcp-hub to be available globally or can't use -g
-  -- build = "bundled_build.lua",  -- Use this and set use_bundled_binary = true in opts  (see Advanced configuration)
+  build = "bundled_build.lua", -- Use this and set use_bundled_binary = true in opts  (see Advanced configuration)
   config = function()
     require("mcphub").setup({
       port = 37373,                                            -- Default port for MCP Hub
       config = vim.fn.expand("~/.config/mcphub/servers.json"), -- Absolute path to config file location (will create if not exists)
       native_servers = {},                                     -- add your native servers here
 
-      auto_approve = vim.g.mcphub_auto_approve or false,,                                    -- Auto approve mcp tool calls
+      auto_approve = vim.g.mcphub_auto_approve or false,       -- Auto approve mcp tool calls
       auto_toggle_mcp_servers = true,                          -- Let LLMs start and stop MCP servers automatically
       -- Extensions configuration
       extensions = {
