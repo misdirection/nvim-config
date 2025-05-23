@@ -68,15 +68,14 @@ return {
             return require("codecompanion.adapters").extend("copilot", {
               schema = {
                 model = {
-                  default = "github/copilot-claude-3.7-sonnet",
+                  default = "claude-3.7-sonnet",
                   choices = {
-                    "github/copilot-claude-3.7-sonnet",
-                    "github/copilot-claude-3.7-sonnet-thought",
-                    "github/copilot-claude-sonnet-4",
-                    "github/copilot-gpt-4.1",
-                    "github/copilot-o4-mini",
-                    "github/copilot-gemini-2.5-pro",
-                    "github/copilot-ghosttext",
+                    "claude-3.7-sonnet",
+                    "claude-3.7-sonnet-thought",
+                    "claude-sonnet-4",
+                    "gpt-4.1",
+                    "o4-mini",
+                    "gemini-2.5-pro",
                   },
                 },
               },
