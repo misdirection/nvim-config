@@ -65,21 +65,7 @@ return {
             })
           end,
           copilot = function()
-            return require("codecompanion.adapters").extend("copilot", {
-              schema = {
-                model = {
-                  default = "claude-3.7-sonnet",
-                  choices = {
-                    "claude-3.7-sonnet",
-                    "claude-3.7-sonnet-thought",
-                    "claude-sonnet-4",
-                    "gpt-4.1",
-                    "o4-mini",
-                    "gemini-2.5-pro",
-                  },
-                },
-              },
-            })
+            return require("codecompanion.adapters").extend("copilot", {})
           end,
         },
         prompt_library = prompts,
