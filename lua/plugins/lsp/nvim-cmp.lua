@@ -87,13 +87,12 @@ return { -- Autocompletion
         end, { 'i', 's' }),
       },
       sources = {
-        {
-          name = 'lazydev',
-          group_index = 0,
-        },
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-        { name = 'path' },
+        { name = "copilot",  priority = 1000 },
+        { name = 'nvim_lsp', priority = 800 },
+        { name = 'luasnip',  priority = 600 },
+        { name = "buffer",   priority = 300 },
+        { name = "path",     priority = 200 },
+        { name = 'lazydev',  group_index = 0, },
       },
     }
   end,
