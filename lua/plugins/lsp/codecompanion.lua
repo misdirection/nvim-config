@@ -52,18 +52,6 @@ return {
           },
         },
         adapters = {
-          ollama = function()
-            return require("codecompanion.adapters").extend("ollama", {
-              env = {
-                url = "http://127.0.0.1:11434",
-              },
-              schema = {
-                model = {
-                  default = "qwen3:14b",
-                },
-              },
-            })
-          end,
           copilot = function()
             return require("codecompanion.adapters").extend("copilot", {})
           end,

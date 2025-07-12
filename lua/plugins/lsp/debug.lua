@@ -38,23 +38,6 @@ return {
     local dap = require 'dap'
     local dapui = require 'dapui'
 
-    dap.adapters.coreclr = {
-      type    = 'executable',
-      command = 'netcoredbg', -- Pfad zu netcoredbg
-      args    = { '--interpreter=vscode' },
-    }
-
-    -- 2) Konfiguration für C# (Godot)
-    dap.configurations.cs = {
-      {
-        type = "coreclr",
-        name = "Attach to Godot",
-        request = "attach",
-        processId = require('dap.utils').pick_process,
-        -- optional: filter für Godot-Prozesse
-        -- processFilter = function(info) return info.name:match("Godot") end
-      },
-    }
     require('mason-nvim-dap').setup {
       automatic_installation = true,
       handlers = {},
