@@ -18,10 +18,10 @@ return {
     local dap = require 'dap'
     local dapui = require 'dapui'
     return {
-      { '<F5>',      dap.continue,          desc = 'Debug: Start/Continue' },
-      { '<F1>',      dap.step_into,         desc = 'Debug: Step Into' },
-      { '<F2>',      dap.step_over,         desc = 'Debug: Step Over' },
-      { '<F3>',      dap.step_out,          desc = 'Debug: Step Out' },
+      { '<F5>', dap.continue, desc = 'Debug: Start/Continue' },
+      { '<F1>', dap.step_into, desc = 'Debug: Step Into' },
+      { '<F2>', dap.step_over, desc = 'Debug: Step Over' },
+      { '<F3>', dap.step_out, desc = 'Debug: Step Out' },
       { '<leader>b', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
       {
         '<leader>B',
@@ -41,8 +41,7 @@ return {
     require('mason-nvim-dap').setup {
       automatic_installation = true,
       handlers = {},
-      ensure_installed = {
-      },
+      ensure_installed = {},
     }
     dapui.setup {
       icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
