@@ -1,3 +1,13 @@
+local local_settings = require('config.local')
+
+local function read_local_setting(key, default)
+  local value = local_settings[key]
+  if value == nil then
+    return default
+  end
+  return value
+end
+
 vim.g.loaded_netrw = 1       -- Disables the default Netrw file explorer
 vim.g.loaded_netrwPlugin = 1 -- Disables the Netrw plugin, using neotree instead
 vim.opt.termguicolors = true -- Enables 24-bit RGB color support in the terminal
@@ -5,7 +15,7 @@ vim.o.autoread = true
 vim.g.mapleader = ' '        -- sets space as leader key
 vim.g.maplocalleader = ' '
 
-vim.g.have_nerd_font = true -- Enables the use of Nerd Font symbols if installed
+vim.g.have_nerd_font = read_local_setting('have_nerd_font', false) -- Enables the use of Nerd Font symbols if installed
 vim.opt.number = true -- Shows absolute line numbers
 vim.opt.relativenumber = true -- Shows relative line numbers to the current line
 vim.opt.mouse = 'a' -- Enables mouse support in all modes
@@ -26,27 +36,40 @@ vim.opt.cursorline = true -- Highlights the current line under the cursor
 vim.opt.scrolloff = 10 -- Keeps at least 10 lines visible above and below the cursor when scrolling
 
 -- mcphub auto approve
-vim.g.mcphub_auto_approve = true
+vim.g.mcphub_auto_approve = read_local_setting('mcphub_auto_approve', false)
 -- use treesitter for folding
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldlevel = 99
 -- for diffview
 vim.opt.conceallevel = 1 -- Hides concealable text (e.g., markdown lists)
-vim.opt.fillchars = "diff: ,fold: ,foldopen:,foldsep: ,foldclose:"
+if vim.g.have_nerd_font then
+  vim.opt.fillchars = "diff: ,fold: ,foldopen:,foldsep: ,foldclose:"
+else
+  vim.opt.fillchars = "diff: ,fold: ,foldopen:>,foldsep: ,foldclose:<"
+end
 --for diffview end
 -- sets clipboard when using WSL
 if vim.fn.has 'wsl' == 1 then
-  vim.g.clipboard = {
-    name = 'WslClipboard',
-    copy = {
-      ['+'] = 'clip.exe',
-      ['*'] = 'clip.exe',
-    },
-    paste = {
-      ['+'] = 'powershell.exe -c Get-Clipboard',
-      ['*'] = 'powershell.exe -c Get-Clipboard',
-    },
-    cache_enabled = 0,
-  }
+  local wsl_clipboard = read_local_setting('wsl_clipboard', nil)
+  if wsl_clipboard and wsl_clipboard ~= false then
+    local default_clipboard = {
+      name = 'WslClipboard',
+      copy = {
+        ['+'] = 'clip.exe',
+        ['*'] = 'clip.exe',
+      },
+      paste = {
+        ['+'] = 'powershell.exe -c Get-Clipboard',
+        ['*'] = 'powershell.exe -c Get-Clipboard',
+      },
+      cache_enabled = 0,
+    }
+
+    if type(wsl_clipboard) == 'table' then
+      vim.g.clipboard = vim.tbl_deep_extend('force', default_clipboard, wsl_clipboard)
+    else
+      vim.g.clipboard = default_clipboard
+    end
+  end
 end

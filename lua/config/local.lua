@@ -1,6 +1,25 @@
 -- INFO: insert local settings here
 local M = {}
 
+-- Set to true if this machine has a Nerd Font available
+M.have_nerd_font = true
+-- Enable MCP Hub auto approve per machine
+M.mcphub_auto_approve = true
+
+-- Override clipboard provider when running under WSL (set to false to disable)
+M.wsl_clipboard = { -- INFO: applied only when running under WSL
+  name = 'WslClipboard',
+  copy = {
+    ['+'] = 'clip.exe',
+    ['*'] = 'clip.exe',
+  },
+  paste = {
+    ['+'] = 'powershell.exe -c Get-Clipboard',
+    ['*'] = 'powershell.exe -c Get-Clipboard',
+  },
+  cache_enabled = 0,
+}
+
 M.lsp_servers = { -- INFO: used in plugins/lsp/nvim-lspconfig.lua
   lua_ls = {
     settings = {

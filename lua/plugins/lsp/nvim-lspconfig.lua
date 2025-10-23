@@ -10,6 +10,11 @@ return {
     'nvim-lua/plenary.nvim',
   },
   config = function()
+    local has_lspconfig, lspconfig = pcall(require, 'lspconfig')
+    if not has_lspconfig then
+      return
+    end
+
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
 
@@ -26,7 +31,7 @@ return {
         map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
           local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
           vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
             buffer = event.buf,
@@ -49,7 +54,7 @@ return {
           })
         end
 
-        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
           map('<leader>th', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
           end, '[T]oggle Inlay [H]ints')
@@ -58,23 +63,37 @@ return {
     })
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
+    local has_cmp_capabilities, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
+    if has_cmp_capabilities then
+      capabilities = vim.tbl_deep_extend('force', capabilities, cmp_nvim_lsp.default_capabilities())
+    end
 
     local local_settings = require('config.local')
 
-    require('mason').setup()
-    require('mason-tool-installer').setup { ensure_installed = local_settings.mason_ensure_installed or {} }
+    local has_mason, mason = pcall(require, 'mason')
+    if has_mason then
+      mason.setup()
+    end
+
+    local has_tool_installer, mason_tool_installer = pcall(require, 'mason-tool-installer')
+    if has_tool_installer then
+      mason_tool_installer.setup { ensure_installed = local_settings.mason_ensure_installed or {} }
+    end
 
     local servers = local_settings.lsp_servers or {}
-    require('mason-lspconfig').setup {
-      handlers = {
-        function(server_name)
-          local server = servers[server_name] or {}
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          require('lspconfig')[server_name].setup(server)
-        end,
-      },
-    }
+    local has_mason_lsp, mason_lspconfig = pcall(require, 'mason-lspconfig')
+    if has_mason_lsp then
+      mason_lspconfig.setup {
+        handlers = {
+          function(server_name)
+            local server = servers[server_name] or {}
+            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            lspconfig[server_name].setup(server)
+          end,
+        },
+      }
+    end
 
     local format_enabled = true
 
