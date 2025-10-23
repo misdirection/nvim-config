@@ -7,10 +7,6 @@ return {
   config = function()
     require('lualine').setup {
       sections = {
-        lualine_x = {
-          -- Other lualine components in "x" section
-          { require('mcphub.extensions.lualine') },
-        },
         lualine_c = {
           {
             "filename",
